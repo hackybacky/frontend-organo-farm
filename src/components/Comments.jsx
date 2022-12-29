@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Comment from "./Comment";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Axios from "../config";
 import { useSelector } from "react-redux";
 const Container = styled.div``;
 
@@ -49,14 +50,14 @@ const Comments = ({ videoId }) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await axios.get(`/api/comments/${videoId}`);
+        const res = await Axios.get(`/api/comments/${videoId}`);
         setComments(res.data);
       } catch (err) {}
     };
     fetchComments();
   }, [videoId]);
   const addComment = async () => {
-    const res = await axios.post("/api/comments", { desc: newComment, videoId });
+    const res = await Axios.post("/api/comments", { desc: newComment, videoId });
     console.log(res);
   };
   return (

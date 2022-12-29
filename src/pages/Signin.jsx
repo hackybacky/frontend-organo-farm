@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
   import 'react-toastify/dist/ReactToastify.css';
 import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import Axios from "../config";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -82,7 +83,7 @@ const SignIn = () => {
     e.preventDefault();
     dispatch(loginStart())
     try{
-      const res =await axios.post("/api/auth/signin",{name,password},{withCredentials:true});
+      const res =await Axios.post("/api/auth/signin",{name,password},{withCredentials:true});
       dispatch(loginSuccess(res.data));
       navigate("/", { replace: true });
       toast.success("login successful")
@@ -95,7 +96,7 @@ const SignIn = () => {
 
       e.preventDefault();
       try{
-        const res = await axios.post("/api/auth/signup",{name,password,email});
+        const res = await Axios.post("/api/auth/signup",{name,password,email});
         // console.log(res);
         toast.success("Sign Up Successful");
       }catch(err){
@@ -106,7 +107,7 @@ const SignIn = () => {
     loginStart();
     signInWithPopup(auth ,provider).then(async(result)=>{
       
-      await axios.post("/api/auth/google",{
+      await Axios.post("/api/auth/google",{
         name:result.user.displayName,
         email:result.user.email,
         img:result.user.photoURL,

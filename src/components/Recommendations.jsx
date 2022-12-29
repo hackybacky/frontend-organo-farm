@@ -3,6 +3,7 @@ import React from 'react'
 import { useState , useEffect } from "react";
 import axios from "axios";
 import Card from "./Card";
+import Axios from "../config";
 const Container=styled.div`
   flex:2;
 `;
@@ -10,7 +11,7 @@ export const Recommendations = ({tags,currentVideoId}) => {
   const [videos,setVideos]=useState([]);
   useEffect(()=>{
     const fetchVideos = async ()=>{
-      const res = await axios.get(`/api/videos/tags?tags=${tags}`)
+      const res = await Axios.get(`/api/videos/tags?tags=${tags}`)
       setVideos(res.data);
       console.log(tags);
     }

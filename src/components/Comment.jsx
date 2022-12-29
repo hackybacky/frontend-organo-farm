@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { format } from "timeago.js";
+import Axios from "../config";
 const Container = styled.div`
   display: flex;
   gap: 10px;
@@ -40,7 +41,7 @@ const Comment = ({ comment }) => {
   const [channel, setChannel] = useState({});
   useEffect(() => {
     const fetchComment = async () => {
-      const res = await axios.get(`/api/users/find/${comment.userId}`);
+      const res = await Axios.get(`/api/users/find/${comment.userId}`);
       setChannel(res.data);
     };
     fetchComment();

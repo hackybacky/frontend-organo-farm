@@ -152,6 +152,7 @@ import {
 } from "firebase/storage";
 import app from "../firebase";
 import axios from "axios";
+import Axios from "../config";
 import { useNavigate } from "react-router-dom";
 
 
@@ -282,7 +283,7 @@ const Upload = ({ setOpen }) => {
 
   const handleUpload = async (e)=>{
     e.preventDefault();
-    const res = await axios.post("/api/videos", {...inputs, tags})
+    const res = await Axios.post("/api/videos", {...inputs, tags})
     setOpen(false)
     res.status===200 && navigate(`/api/video/${res.data._id}`)
   }

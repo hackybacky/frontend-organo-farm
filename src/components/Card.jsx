@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { format } from "timeago.js";
 import { useState } from "react";
 import axios from "axios";
-
+import Axios from "../config";
 const Container = styled.div`
   width: ${(props) => props.type !== "sm" && "360px"};
   margin-bottom: ${(props) => (props.type === "sm" ? "10px" : "45px")};
@@ -58,7 +58,7 @@ const Card = ({ type, video }) => {
   const [channel, setChannel] = useState({});
   useEffect(() => {
     const fetchChannel = async () => {
-      const res = await axios.get(`/api/users/find/${video.userId}`);
+      const res = await Axios.get(`/api/users/find/${video.userId}`);
       setChannel(res.data);
       // console.log(res.data)
     };

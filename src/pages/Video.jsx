@@ -26,6 +26,7 @@ import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import CountUp from "react-countup";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import Axios from "../config";
 const Container = styled.div`
   display: flex;
   gap: 24px;
@@ -141,9 +142,9 @@ const Video = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const videoRes = await axios.get(`/api/videos/find/${path}`);
+        const videoRes = await Axios.get(`/api/videos/find/${path}`);
         // console.log(videoRes);
-        const channelRes = await axios.get(
+        const channelRes = await Axios.get(
           `/api/users/find/${videoRes.data.userId}`
         );
 
@@ -156,28 +157,28 @@ const Video = () => {
   }, [path, dispatch]);
 
   const handleLike = async () => {
-    await axios.put(`/api/users/like/${currentVideo._id}`);
+    await Axios.put(`/api/users/like/${currentVideo._id}`);
     toast.success("video Liked ")
     dispatch(like(currentUser._id));
   };
 
   const handleDislike = async () => {
-    await axios.put(`/api/users/dislike/${currentVideo._id}`);
+    await Axios.put(`/api/users/dislike/${currentVideo._id}`);
     toast.success("Video Disliked")
     dispatch(dislike(currentUser._id));
   };
 
   const handleSub = async () => {
     currentUser.subscribedUsers.includes(channel._id)
-      ? await axios.put(`/api/users/unsub/${channel._id}`)
-      : await axios.put(`/api/users/sub/${channel._id}`);
+      ? await Axios.put(`/api/users/unsub/${channel._id}`)
+      : await Axios.put(`/api/users/sub/${channel._id}`);
     dispatch(subscription(channel._id));
   };
 
   const handlePlay = async () => {
     if (notPlayed === false) {
       console.log("hello");
-      await axios.put(`/api/videos/view/${currentVideo._id}`);
+      await Axios.put(`/api/videos/view/${currentVideo._id}`);
       setNotPlayed(true);
     }
   };
